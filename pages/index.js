@@ -1,6 +1,8 @@
 import { Fragment } from 'react';
 import Head from 'next/head';
 
+import Banner from '@/components/Banner';
+
 export default function Home() {
   return (
     <Fragment>
@@ -11,6 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>Netflix</h1>
+      <Banner />
     </Fragment>
   );
 }
