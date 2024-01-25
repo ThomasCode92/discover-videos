@@ -13,7 +13,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>Netflix</h1>
-      <Banner />
+      <Banner
+        title="Clifford the red dog"
+        subTitle="a very cute dog"
+        imgUrl="/static/clifford.jpg"
+      />
     </Fragment>
   );
 }
