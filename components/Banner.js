@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import styles from './Banner.module.css';
 
 export default function Banner({ title, subTitle, imgUrl }) {
   const handlePlayVideo = () => {
@@ -6,20 +6,21 @@ export default function Banner({ title, subTitle, imgUrl }) {
   };
 
   return (
-    <Fragment>
-      <h3>{title}</h3>
-      <h3>{subTitle}</h3>
-      <button onClick={handlePlayVideo}>Play</button>
+    <div className={styles.container}>
+      <div className={styles['banner-info']}>
+        <p className={styles['brand-series']}>Nseries</p>
+
+        <h3 className={styles.title}>{title}</h3>
+        <h3 className={styles.subtitle}>{subTitle}</h3>
+
+        <button className={styles['play-btn']} onClick={handlePlayVideo}>
+          <span className={styles['play-btn-text']}>Play</span>
+        </button>
+      </div>
       <div
-        style={{
-          backgroundImage: `url(${imgUrl})`,
-          width: '100%',
-          height: '100%',
-          position: 'absolute',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+        className={styles['banner-img']}
+        style={{ backgroundImage: `url(${imgUrl})` }}
       />
-    </Fragment>
+    </div>
   );
 }
