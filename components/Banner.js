@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './Banner.module.css';
 
 export default function Banner({ title, subTitle, imgUrl }) {
@@ -14,6 +15,12 @@ export default function Banner({ title, subTitle, imgUrl }) {
         <h3 className={styles.subtitle}>{subTitle}</h3>
 
         <button className={styles['play-btn']} onClick={handlePlayVideo}>
+          <Image
+            src="/static/play_arrow.svg"
+            alt="profile picture"
+            width={32}
+            height={32}
+          />
           <span className={styles['play-btn-text']}>Play</span>
         </button>
       </div>
