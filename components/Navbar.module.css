@@ -1,0 +1,106 @@
+.container {
+  --gradient-from: var(--black);
+  --gradient-stops: var(--gradient-from), var(--gradient-to, rgba(0, 0, 0, 0));
+
+  color: var(--white-10);
+  position: fixed;
+  top: 0px;
+  background-image: linear-gradient(to bottom, var(--gradient-stops));
+
+  width: 100%;
+  z-index: 50;
+
+  display: flex;
+  align-items: center;
+  padding: 1.25rem /* 20px */;
+}
+
+.logo-link {
+  display: none;
+  font-weight: 500;
+  font-size: 1rem; /* 16px */
+  color: var(--white-10);
+}
+
+.logo {
+  color: var(--red);
+  width: 8rem /* 128px */;
+}
+
+.nav-items {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem /* 12px */;
+  width: 50%;
+  margin-right: 1.5rem /* 24px */;
+  font-size: 0.875rem /* 14px */;
+  font-size: 1rem; /* 16px */
+
+  line-height: 1.25rem /* 20px */;
+  list-style: none;
+}
+
+.nav-item {
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  /* white-space: nowrap; */
+}
+
+.username-wrapper {
+  margin-left: auto;
+  position: relative;
+}
+
+.username-btn {
+  color: var(--white);
+  font-size: 1rem; /* 16px */
+}
+
+.username-dropdown {
+  position: absolute;
+  top: 1.5rem; /* 24px */
+  right: 0px;
+  min-width: 6.5rem; /* 104px */
+  padding: 0.5rem /* 8px */;
+  background-color: var(--black-50);
+  color: var(--white);
+  border: 1px solid var(--blue);
+  border-radius: 0.25rem /* 4px */;
+
+  box-shadow: var(--shadow-30, 0 0 #0000), var(--ring-shadow, 0 0 #0000),
+    var(--shadow-30);
+}
+
+.username-link {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+  display: block;
+  padding: 0 0.5rem; /* 0 8px */
+
+  font-size: 1rem /* 16px */;
+  line-height: 1.25rem /* 20px */;
+  border-radius: 0.25rem /* 4px */;
+  cursor: pointer;
+}
+
+.username-link:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 4rem /* 64px */;
+    padding-right: 4rem /* 64px */;
+  }
+
+  .logo-link {
+    display: block;
+  }
+
+  .nav-items {
+    margin-left: 3rem /* 48px */;
+    gap: 1.25rem /* 20px */;
+  }
+}

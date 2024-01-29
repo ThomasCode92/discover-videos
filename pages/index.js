@@ -14,7 +14,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar username="Thomas" />
+      <Navbar username="Thomas@netflix.com" />
       <Banner
         title="Clifford the red dog"
         subTitle="a very cute dog"
