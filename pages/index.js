@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import Head from 'next/head';
 
 import Banner from '@/components/Banner';
+import Navbar from '@/components/Navbar';
 
 export default function Home() {
   return (
@@ -12,7 +13,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Netflix</h1>
+
+      <Navbar username="Thomas" />
       <Banner
         title="Clifford the red dog"
         subTitle="a very cute dog"
