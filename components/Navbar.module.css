@@ -72,7 +72,7 @@
     var(--shadow-30);
 }
 
-.username-link {
+.signout-link {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
@@ -85,7 +85,7 @@
   cursor: pointer;
 }
 
-.username-link:hover {
+.signout-link:hover {
   text-decoration: underline;
 }
 
