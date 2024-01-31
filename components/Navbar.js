@@ -1,17 +1,10 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import styles from './Navbar.module.css';
 
 export default function Navbar({ username }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const router = useRouter();
-
-  const handleNavigate = route => {
-    setIsDropdownOpen(false);
-    router.push(route);
-  };
 
   const handleShowDropdown = () => {
     setIsDropdownOpen(prevState => !prevState);
@@ -30,12 +23,8 @@ export default function Navbar({ username }) {
 
       <ul className={styles['nav-items']}>
         {routes.map(({ label, path }) => (
-          <li
-            key={label}
-            className={styles['nav-item']}
-            onClick={handleNavigate.bind(this, path)}
-          >
-            {label}
+          <li key={label} className={styles['nav-item']}>
+            <Link href={path}>{label}</Link>
           </li>
         ))}
       </ul>
