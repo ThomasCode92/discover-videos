@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import styles from './Navbar.module.css';
+
+import netflixLogo from '../public/static/netflix.svg';
+import expandMoreIcon from '../public/static/expand_more.svg';
 
 export default function Navbar({ username }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -18,7 +22,7 @@ export default function Navbar({ username }) {
   return (
     <nav className={styles.container}>
       <a className={styles['logo-link']}>
-        <div className={styles.logo}>Netflix</div>
+        <Image src={netflixLogo} alt="Netflix logo" className={styles.logo} />
       </a>
 
       <ul className={styles['nav-items']}>
@@ -32,6 +36,11 @@ export default function Navbar({ username }) {
       <div className={styles['username-wrapper']}>
         <button className={styles['username-btn']} onClick={handleShowDropdown}>
           {username}
+          <Image
+            src={expandMoreIcon}
+            alt="Expand dropdown"
+            style={{ color: 'white' }}
+          />
         </button>
         {isDropdownOpen && (
           <div className={styles['username-dropdown']}>

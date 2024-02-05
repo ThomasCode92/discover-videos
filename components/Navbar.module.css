@@ -23,7 +23,6 @@
 }
 
 .logo {
-  color: var(--red);
   width: 8rem /* 128px */;
 }
 
@@ -53,6 +52,8 @@
 }
 
 .username-btn {
+  display: flex;
+  align-items: center;
   color: var(--white);
   font-size: 1rem; /* 16px */
 }
@@ -96,7 +97,7 @@
   }
 
   .logo-link {
-    display: block;
+    display: flex;
   }
 
   .nav-items {
