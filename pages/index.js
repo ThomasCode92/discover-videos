@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import Banner from '@/components/Banner';
 import Navbar from '@/components/Navbar';
+import Card from '@/components/Card';
 
 export default function Home() {
   return (
@@ -20,6 +21,9 @@ export default function Home() {
         subTitle="a very cute dog"
         imgUrl="/static/clifford.jpg"
       />
+      <Card imageUrl="/static/clifford.jpg" size="large" />
+      <Card imageUrl="/static/clifford.jpg" size="medium" />
+      <Card imageUrl="/static/clifford.jpg" size="small" />
     </Fragment>
   );
 }
