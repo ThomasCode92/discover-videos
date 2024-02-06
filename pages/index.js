@@ -22,8 +22,8 @@ export default function Home() {
         imgUrl="/static/clifford.jpg"
       />
       <Card imageUrl="/static/clifford.jpg" size="large" />
-      <Card imageUrl="/static/clifford.jpg" size="medium" />
-      <Card imageUrl="/static/clifford.jpg" size="small" />
+      <Card imageUrl="/static/clifford.png" />
+      <Card size="small" />
     </Fragment>
   );
 }
