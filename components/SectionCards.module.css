@@ -13,10 +13,8 @@
 
 .card-wrapper {
   display: flex;
-  padding-top: 1.7rem;
-  padding-bottom: 1.5rem;
-  margin-top: 1.5rem /* 24px */;
-  margin-right: 0.75rem /* 12px */;
+  padding-top: 1rem; /* 16px */
+  padding-bottom: 0.75rem; /* 16px */
   overflow-x: scroll;
   overflow-y: hidden;
 }
@@ -25,5 +23,10 @@
   .container {
     padding-left: 4rem /* 64px */;
     padding-right: 4rem /* 64px */;
+  }
+
+  .card-wrapper {
+    padding-top: 1.7rem;
+    padding-bottom: 1.5rem;
   }
 }

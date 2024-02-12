@@ -7,6 +7,11 @@ import SectionCards from '@/components/SectionCards';
 import Card from '@/components/Card';
 
 export default function Home() {
+  const disneyVideos = [
+    { imageUrl: '/static/clifford.jpg' },
+    { imageUrl: '/static/clifford.jpg' },
+    { imageUrl: '/static/clifford.jpg' },
+  ];
   return (
     <Fragment>
       <Head>
@@ -22,7 +27,10 @@ export default function Home() {
         subTitle="a very cute dog"
         imgUrl="/static/clifford.jpg"
       />
-      <SectionCards title="Disney" />
+
+      <SectionCards title="Disney" size="large" videos={disneyVideos} />
+      <SectionCards title="Disney" size="medium" videos={disneyVideos} />
+      <SectionCards title="Disney" size="small" videos={disneyVideos} />
     </Fragment>
   );
 }
