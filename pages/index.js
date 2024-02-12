@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import Banner from '@/components/Banner';
 import Navbar from '@/components/Navbar';
+import SectionCards from '@/components/SectionCards';
 import Card from '@/components/Card';
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
         subTitle="a very cute dog"
         imgUrl="/static/clifford.jpg"
       />
+      <SectionCards title="Disney" />
       <Card imageUrl="/static/clifford.jpg" size="large" />
       <Card imageUrl="/static/clifford.png" />
       <Card size="small" />
