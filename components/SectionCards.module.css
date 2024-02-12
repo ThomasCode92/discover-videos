@@ -1,0 +1,29 @@
+.container {
+  color: var(--blue-20);
+  background-color: --var(--black-50);
+  padding-left: 1rem /* 16px */;
+  padding-right: 1rem /* 16px */;
+}
+
+.title {
+  color: var(--white-10);
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.card-wrapper {
+  display: flex;
+  padding-top: 1.7rem;
+  padding-bottom: 1.5rem;
+  margin-top: 1.5rem /* 24px */;
+  margin-right: 0.75rem /* 12px */;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 4rem /* 64px */;
+    padding-right: 4rem /* 64px */;
+  }
+}

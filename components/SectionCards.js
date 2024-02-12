@@ -8,6 +8,10 @@ export default function SectionCards({ title }) {
       <h2 className={styles.title}>{title}</h2>
       <div className={styles['card-wrapper']}>
         <Card imageUrl="/static/clifford.jpg" size="large" />
+        <Card imageUrl="/static/clifford.jpg" size="large" />
+        <Card imageUrl="/static/clifford.jpg" size="large" />
+        <Card imageUrl="/static/clifford.jpg" size="large" />
+        <Card imageUrl="/static/clifford.jpg" size="large" />
       </div>
     </section>
   );

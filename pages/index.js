@@ -23,9 +23,6 @@ export default function Home() {
         imgUrl="/static/clifford.jpg"
       />
       <SectionCards title="Disney" />
-      <Card imageUrl="/static/clifford.jpg" size="large" />
-      <Card imageUrl="/static/clifford.png" />
-      <Card size="small" />
     </Fragment>
   );
 }
