@@ -4,14 +4,12 @@ import Head from 'next/head';
 import Banner from '@/components/Banner';
 import Navbar from '@/components/Navbar';
 import SectionCards from '@/components/SectionCards';
-import Card from '@/components/Card';
+
+import { getVideos } from '@/lib/videos';
 
 export default function Home() {
-  const disneyVideos = [
-    { imageUrl: '/static/clifford.jpg' },
-    { imageUrl: '/static/clifford.jpg' },
-    { imageUrl: '/static/clifford.jpg' },
-  ];
+  const disneyVideos = getVideos();
+
   return (
     <Fragment>
       <Head>
