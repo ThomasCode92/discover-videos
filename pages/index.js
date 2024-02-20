@@ -7,9 +7,7 @@ import SectionCards from '@/components/SectionCards';
 
 import { getVideos } from '@/lib/videos';
 
-export default function Home() {
-  const disneyVideos = getVideos();
-
+export default function Home({ disneyVideos }) {
   return (
     <Fragment>
       <Head>
@@ -31,4 +29,10 @@ export default function Home() {
       <SectionCards title="Disney" size="small" videos={disneyVideos} />
     </Fragment>
   );
+}
+
+export async function getServerSideProps() {
+  const disneyVideos = getVideos();
+
+  return { props: { disneyVideos } };
 }

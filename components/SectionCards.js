@@ -3,6 +3,8 @@ import Card from './Card';
 import styles from './SectionCards.module.css';
 
 export default function SectionCards({ title, size, videos }) {
+  if (!videos) return null;
+
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>{title}</h2>
