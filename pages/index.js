@@ -5,12 +5,14 @@ import Banner from '@/components/Banner';
 import Navbar from '@/components/Navbar';
 import SectionCards from '@/components/SectionCards';
 
-import { getVideos } from '@/lib/videos';
+import { getPopularVideos, getVideos } from '@/lib/videos';
+import styles from '@/styles/Home.module.css';
 
 export default function Home({
   disneyVideos,
   travelVideos,
   productivityVideos,
+  popularVideos,
 }) {
   return (
     <Fragment>
@@ -28,14 +30,16 @@ export default function Home({
         imgUrl="/static/clifford.jpg"
       />
 
-      <SectionCards title="Disney" size="large" videos={disneyVideos} />
-      <SectionCards title="Travel" size="small" videos={travelVideos} />
-      <SectionCards
-        title="Productivity"
-        size="medium"
-        videos={productivityVideos}
-      />
-      <SectionCards title="Popular" size="small" videos={disneyVideos} />
+      <div className={styles.videos}>
+        <SectionCards title="Disney" size="large" videos={disneyVideos} />
+        <SectionCards title="Travel" size="small" videos={travelVideos} />
+        <SectionCards
+          title="Productivity"
+          size="medium"
+          videos={productivityVideos}
+        />
+        <SectionCards title="Popular" size="small" videos={popularVideos} />
+      </div>
     </Fragment>
   );
 }
@@ -44,6 +48,9 @@ export async function getServerSideProps() {
   const disneyVideos = await getVideos();
   const travelVideos = await getVideos('travel');
   const productivityVideos = await getVideos('productivity');
+  const popularVideos = await getPopularVideos();
 
-  return { props: { disneyVideos, travelVideos, productivityVideos } };
+  return {
+    props: { disneyVideos, travelVideos, productivityVideos, popularVideos },
+  };
 }
