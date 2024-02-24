@@ -1,0 +1,6 @@
+.logo-link {
+  position: relative;
+  color: var(--red);
+  width: 8rem /* 128px */;
+  height: 2rem /* 32px */;
+}
