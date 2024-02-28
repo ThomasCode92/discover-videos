@@ -34,10 +34,10 @@ export default function Login() {
     try {
       const didToken = await magic.auth.loginWithMagicLink({ email });
       console.log(didToken);
+      router.push('/');
     } catch {
-      // Handle errors if required!
+      console.error('Something went wrong logging in', error);
     }
-    // router.push('/');
   };
 
   return (
