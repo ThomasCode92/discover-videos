@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
 
+import Loading from '@/components/Loading';
+
 import { magic } from '@/lib/magic';
 
 import '@/styles/globals.css';
@@ -43,7 +45,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <main className={myFont.className}>
-      {isLoading ? <div>Loading...</div> : <Component {...pageProps} />}
+      {isLoading ? <Loading /> : <Component {...pageProps} />}
     </main>
   );
 }
