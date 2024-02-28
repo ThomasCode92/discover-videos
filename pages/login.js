@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import styles from '@/styles/Login.module.css';
 import netflixLogo from '@/public/static/netflix.svg';
@@ -9,6 +10,8 @@ import netflixLogo from '@/public/static/netflix.svg';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [userMessage, setUserMessage] = useState(undefined);
+
+  const router = useRouter();
 
   const handleOnChangeEmail = event => {
     const inputValue = event.target.value;
@@ -21,7 +24,9 @@ export default function Login() {
 
     if (email === '') return setUserMessage('Please enter your email address');
 
-    // route to dashboard
+    if (email !== 'john.doe@netflix.com') return console.log('Invalid email');
+
+    router.push('/');
   };
 
   return (
