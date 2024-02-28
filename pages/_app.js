@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import localFont from 'next/font/local';
 
@@ -14,6 +14,7 @@ const myFont = localFont({
 });
 
 export default function App({ Component, pageProps }) {
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -25,12 +26,24 @@ export default function App({ Component, pageProps }) {
       router.push('/');
     };
 
+    const handleComplete = () => {
+      setIsLoading(false);
+    };
+
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+
     handleLoggedIn();
+
+    return () => {
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
+    };
   }, []);
 
   return (
     <main className={myFont.className}>
-      <Component {...pageProps} />
+      {isLoading ? <div>Loading...</div> : <Component {...pageProps} />}
     </main>
   );
 }
