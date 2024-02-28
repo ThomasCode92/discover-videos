@@ -12,10 +12,9 @@ import netflixLogo from '@/public/static/netflix.svg';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [userMessage, setUserMessage] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-
-  console.log(magic);
 
   const handleOnChangeEmail = event => {
     const inputValue = event.target.value;
@@ -31,11 +30,14 @@ export default function Login() {
     if (email !== process.env.NEXT_PUBLIC_TEST_EMAIL)
       return console.log('Invalid email');
 
+    setIsLoading(true);
+
     try {
-      const didToken = await magic.auth.loginWithMagicLink({ email });
-      console.log(didToken);
+      await magic.auth.loginWithMagicLink({ email });
+      setIsLoading(false);
       router.push('/');
     } catch {
+      setIsLoading(false);
       console.error('Something went wrong logging in', error);
     }
   };
@@ -72,7 +74,7 @@ export default function Login() {
             className={styles['login-btn']}
             onClick={handleLoginWithEmail}
           >
-            Sign In
+            {isLoading ? 'Loading...' : 'Sign In'}
           </button>
         </form>
       </main>
