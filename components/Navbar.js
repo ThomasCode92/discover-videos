@@ -1,14 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 import styles from './Navbar.module.css';
 
+import { magic } from '@/lib/magic';
+
 import netflixLogo from '../public/static/netflix.svg';
 import expandMoreIcon from '../public/static/expand_more.svg';
 
-export default function Navbar({ username }) {
+export default function Navbar() {
+  const [username, setUsername] = useState(undefined);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    async function getUsername() {
+      try {
+        const { email } = await magic.user.getMetadata();
+        if (email) setUsername(email);
+      } catch (error) {
+        console.log('Error retrieving email:', error);
+      }
+    }
+
+    getUsername();
+  }, []);
 
   const handleShowDropdown = () => {
     setIsDropdownOpen(prevState => !prevState);
