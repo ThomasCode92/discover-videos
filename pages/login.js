@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -15,6 +15,20 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const handleComplete = () => {
+      setIsLoading(false);
+    };
+
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
+    };
+  }, [router]);
 
   const handleOnChangeEmail = event => {
     const inputValue = event.target.value;
@@ -34,7 +48,6 @@ export default function Login() {
 
     try {
       await magic.auth.loginWithMagicLink({ email });
-      setIsLoading(false);
       router.push('/');
     } catch {
       setIsLoading(false);
