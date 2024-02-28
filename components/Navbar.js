@@ -1,17 +1,47 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import styles from './Navbar.module.css';
+
+import { magic } from '@/lib/magic';
 
 import netflixLogo from '../public/static/netflix.svg';
 import expandMoreIcon from '../public/static/expand_more.svg';
 
-export default function Navbar({ username }) {
+export default function Navbar() {
+  const [username, setUsername] = useState(undefined);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    async function getUsername() {
+      try {
+        const { email } = await magic.user.getMetadata();
+        if (email) setUsername(email);
+      } catch (error) {
+        console.log('Error retrieving email:', error);
+      }
+    }
+
+    getUsername();
+  }, []);
 
   const handleShowDropdown = () => {
     setIsDropdownOpen(prevState => !prevState);
+  };
+
+  const handleSignOut = async event => {
+    event.preventDefault();
+
+    try {
+      await magic.user.logout();
+    } catch (error) {
+      console.error('Error logging out', error);
+    }
+    router.push('/login');
   };
 
   const routes = [
@@ -44,9 +74,9 @@ export default function Navbar({ username }) {
         </button>
         {isDropdownOpen && (
           <div className={styles['username-dropdown']}>
-            <Link className={styles['signout-link']} href="/login">
+            <div className={styles['signout-link']} onClick={handleSignOut}>
               Sign Out
-            </Link>
+            </div>
           </div>
         )}
       </div>
