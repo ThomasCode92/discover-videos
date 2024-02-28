@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -6,16 +7,27 @@ import styles from '@/styles/Login.module.css';
 import netflixLogo from '@/public/static/netflix.svg';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [userMessage, setUserMessage] = useState(undefined);
+
+  const handleOnChangeEmail = event => {
+    const inputValue = event.target.value;
+    setUserMessage(undefined);
+    setEmail(inputValue);
+  };
+
   const handleLoginWithEmail = async event => {
     event.preventDefault();
 
-    console.log('Login with email...');
+    if (email === '') return setUserMessage('Please enter your email address');
+
+    // route to dashboard
   };
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>Netflix SignIn</title>
+        <title>Netflix Sign In</title>
       </Head>
 
       <header className={styles.header}>
@@ -34,9 +46,12 @@ export default function Login() {
             type="text"
             placeholder="Email address"
             className={styles['email-input']}
+            onChange={handleOnChangeEmail}
           />
 
-          <p className={styles['user-message']}></p>
+          {userMessage && (
+            <p className={styles['user-message']}>{userMessage}</p>
+          )}
           <button
             className={styles['login-btn']}
             onClick={handleLoginWithEmail}
