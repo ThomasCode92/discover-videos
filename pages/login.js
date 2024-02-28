@@ -28,9 +28,16 @@ export default function Login() {
 
     if (email === '') return setUserMessage('Please enter your email address');
 
-    if (email !== 'john.doe@netflix.com') return console.log('Invalid email');
+    if (email !== process.env.NEXT_PUBLIC_TEST_EMAIL)
+      return console.log('Invalid email');
 
-    router.push('/');
+    try {
+      const didToken = await magic.auth.loginWithMagicLink({ email });
+      console.log(didToken);
+    } catch {
+      // Handle errors if required!
+    }
+    // router.push('/');
   };
 
   return (
