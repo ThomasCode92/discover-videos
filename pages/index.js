@@ -27,6 +27,7 @@ export default function Home({
       <Banner
         title="Clifford the red dog"
         subTitle="a very cute dog"
+        videoId="4zH5iYM4wJo"
         imgUrl="/static/clifford.jpg"
       />
 
