@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 
 import { magic } from '@/lib/magic';
 
@@ -14,19 +14,17 @@ export default function Login() {
   const [userMessage, setUserMessage] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
-  const router = useRouter();
-
   useEffect(() => {
     const handleComplete = () => {
       setIsLoading(false);
     };
 
-    router.events.on('routeChangeComplete', handleComplete);
-    router.events.on('routeChangeError', handleComplete);
+    Router.events.on('routeChangeComplete', handleComplete);
+    Router.events.on('routeChangeError', handleComplete);
 
     return () => {
-      router.events.off('routeChangeComplete', handleComplete);
-      router.events.off('routeChangeError', handleComplete);
+      Router.events.off('routeChangeComplete', handleComplete);
+      Router.events.off('routeChangeError', handleComplete);
     };
   }, []);
 
@@ -48,8 +46,8 @@ export default function Login() {
 
     try {
       await magic.auth.loginWithMagicLink({ email });
-      router.push('/');
-    } catch {
+      Router.push('/');
+    } catch (error) {
       setIsLoading(false);
       console.error('Something went wrong logging in', error);
     }

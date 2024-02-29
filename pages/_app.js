@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 import localFont from 'next/font/local';
 
 import Loading from '@/components/Loading';
@@ -17,29 +17,28 @@ const myFont = localFont({
 
 export default function App({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     const handleLoggedIn = async () => {
       const isLoggedIn = await magic.user.isLoggedIn();
 
-      if (!isLoggedIn) return router.push('/login');
+      if (!isLoggedIn) return Router.push('/login');
 
-      router.push('/');
+      Router.push('/');
     };
 
     const handleComplete = () => {
       setIsLoading(false);
     };
 
-    router.events.on('routeChangeComplete', handleComplete);
-    router.events.on('routeChangeError', handleComplete);
+    Router.events.on('routeChangeComplete', handleComplete);
+    Router.events.on('routeChangeError', handleComplete);
 
     handleLoggedIn();
 
     return () => {
-      router.events.off('routeChangeComplete', handleComplete);
-      router.events.off('routeChangeError', handleComplete);
+      Router.events.off('routeChangeComplete', handleComplete);
+      Router.events.off('routeChangeError', handleComplete);
     };
   }, []);
 
