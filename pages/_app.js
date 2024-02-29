@@ -34,7 +34,9 @@ export default function App({ Component, pageProps }) {
     Router.events.on('routeChangeComplete', handleComplete);
     Router.events.on('routeChangeError', handleComplete);
 
-    handleLoggedIn();
+    handleComplete();
+
+    // handleLoggedIn();
 
     return () => {
       Router.events.off('routeChangeComplete', handleComplete);
