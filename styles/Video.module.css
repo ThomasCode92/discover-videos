@@ -1,0 +1,21 @@
+.modal {
+  /** centers modal **/
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10%;
+  bottom: 40px;
+  margin: 0 auto;
+
+  width: 800px;
+  padding: 1rem;
+  background-color: var(--black-40);
+  border-radius: 0.5rem;
+  border: 0.125rem solid var(--shadow-20);
+}
+
+.overlay {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--black-20);
+}

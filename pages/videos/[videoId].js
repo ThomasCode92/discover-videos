@@ -11,15 +11,15 @@ export default function Video() {
   const { videoId } = router.query;
 
   return (
-    <div>
-      Video Page {videoId}
+    <div className={styles.container}>
       <Modal
         isOpen={true}
         contentLabel="Watch the video"
+        className={styles.modal}
         overlayClassName={styles.overlay}
         onRequestClose={() => router.back()}
       >
-        <div>Modal Body</div>
+        <div>Modal Body for video {videoId}</div>
       </Modal>
     </div>
   );
