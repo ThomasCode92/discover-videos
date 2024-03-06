@@ -2,7 +2,9 @@
   // Extensions
   "gitlens.codeLens.recentChange.enabled": false,
   "gitlens.codeLens.authors.enabled": false,
-  "inlineFold.autoFold": false,
+
+  // Linting
+  "css.lint.validProperties": ["composes"],
 
   // IDE Config
   "editor.defaultFormatter": "esbenp.prettier-vscode",

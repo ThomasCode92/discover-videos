@@ -23,12 +23,13 @@ export default function Video() {
       >
         <iframe
           id="player"
+          className={styles['video-player']}
           type="text/html"
-          width="640"
-          height="390"
+          width="100%"
+          height="100%"
           src={videoSrc}
           frameborder="0"
-        ></iframe>
+        />
       </Modal>
     </div>
   );

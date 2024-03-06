@@ -8,14 +8,29 @@
   margin: 0 auto;
 
   width: 800px;
-  padding: 1rem;
   background-color: var(--black-40);
-  border-radius: 0.5rem;
-  border: 0.125rem solid var(--shadow-20);
 }
 
 .overlay {
   width: 100%;
   height: 100vh;
   background-color: var(--black-20);
+}
+
+/** gives box shadow to the video frame **/
+.border-box-shadow {
+  -webkit-box-shadow: 0 3px 7px var(--shadow-20);
+  -moz-box-shadow: 0 3px 7px var(--shadow-20);
+  box-shadow: 0 3px 7px var(--shadow-20);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+  opacity: 1;
+  background: linear-gradient(to top, var(--black-10), transparent 50%);
+}
+
+/** Makes video edges curvy **/
+.video-player {
+  border-radius: 0.5rem;
+  composes: border-box-shadow;
 }
