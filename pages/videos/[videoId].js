@@ -10,6 +10,8 @@ export default function Video() {
 
   const { videoId } = router.query;
 
+  const videoSrc = `http://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&controls=0&rel=0`;
+
   return (
     <div className={styles.container}>
       <Modal
@@ -19,7 +21,14 @@ export default function Video() {
         overlayClassName={styles.overlay}
         onRequestClose={() => router.back()}
       >
-        <div>Modal Body for video {videoId}</div>
+        <iframe
+          id="player"
+          type="text/html"
+          width="640"
+          height="390"
+          src={videoSrc}
+          frameborder="0"
+        ></iframe>
       </Modal>
     </div>
   );
