@@ -9,6 +9,7 @@
 
   width: 800px;
   background-color: var(--black-40);
+  border-radius: 0.5rem;
 }
 
 .overlay {
@@ -33,4 +34,62 @@
 .video-player {
   border-radius: 0.5rem;
   composes: border-box-shadow;
+}
+
+/** Modal body **/
+.modal-body {
+  padding: 0 3rem;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  column-gap: 2rem;
+  padding-top: 1.5rem /* 24px */;
+}
+
+/** Modal body left side **/
+.video-info {
+  max-height: calc(90vh - 400px - 3rem);
+  overflow-y: scroll;
+  font-size: 1.125rem /* 18px */;
+  line-height: 1.75rem /* 28px */;
+}
+
+.publish-time {
+  color: var(--green-10);
+}
+
+.title {
+  margin-top: 0.5rem /* 8px */;
+  margin-bottom: 0.75rem /* 12px */;
+  color: var(--white-10);
+}
+
+.description {
+  line-height: normal;
+  font-size: 1rem;
+}
+
+/** Modal body right side **/
+.video-stats {
+  color: var(--white-10);
+  line-height: 1.75rem /* 28px */;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem /* 28px */;
+}
+
+.sub-text {
+  font-size: 0.875rem /* 14px */;
+  color: var(--gray-10);
+}
+
+@media (max-width: 768px) {
+  .modal {
+    top: 0;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .video-info {
+    max-height: calc(100vh - 360px - 3rem);
+  }
 }
