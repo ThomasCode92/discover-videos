@@ -17,21 +17,12 @@ const modalFont = localFont({
 
 Modal.setAppElement('#__next');
 
-export default function Video() {
+export default function Video({ video }) {
   const router = useRouter();
 
   const { videoId } = router.query;
 
-  const videoSrc = `http://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&controls=0&rel=0`;
-
-  const video = {
-    title: 'Hi cute dog',
-    publishTime: '1990-01-01',
-    description:
-      'A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger?',
-    channelTitle: 'Paramount Pictures',
-    viewCount: 10000,
-  };
+  const videoSrc = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&controls=0&rel=0`;
 
   return (
     <div className={styles.container}>
@@ -71,4 +62,24 @@ export default function Video() {
       </Modal>
     </div>
   );
+}
+
+export async function getStaticPaths() {
+  const listOfVideos = ['mYfJxlgR2jw', '4zH5iYM4wJo', 'KCPEHsAViiQ'];
+  const videoPaths = listOfVideos.map(videoId => ({ params: { videoId } }));
+
+  return { paths: videoPaths, fallback: 'blocking' };
+}
+
+export async function getStaticProps() {
+  // data to fetch from API
+  const video = {
+    title: 'Hi cute dog',
+    publishTime: '1990-01-01',
+    description: 'A big red dog that is super cute, can he get any bigger? ',
+    channelTitle: 'Paramount Pictures',
+    viewCount: 10000,
+  };
+
+  return { props: { video }, revalidate: 10 };
 }
