@@ -3,6 +3,8 @@ import Modal from 'react-modal';
 import localFont from 'next/font/local';
 import clsx from 'classnames';
 
+import { getYoutubeVideoById } from '@/lib/videos';
+
 import styles from '@/styles/Video.module.css';
 
 const modalFont = localFont({
@@ -55,7 +57,7 @@ export default function Video({ video }) {
             </p>
             <p>
               <span className={styles['sub-text']}>View Count: </span>
-              {video.viewCount}
+              {video.statistics.viewCount}
             </p>
           </div>
         </div>
@@ -72,14 +74,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps() {
-  // data to fetch from API
-  const video = {
-    title: 'Hi cute dog',
-    publishTime: '1990-01-01',
-    description: 'A big red dog that is super cute, can he get any bigger? ',
-    channelTitle: 'Paramount Pictures',
-    viewCount: 10000,
-  };
+  const videoId = '4zH5iYM4wJo';
+  const videos = await getYoutubeVideoById(videoId);
 
-  return { props: { video }, revalidate: 10 };
+  return { props: { video: videos[0] }, revalidate: 10 };
 }
