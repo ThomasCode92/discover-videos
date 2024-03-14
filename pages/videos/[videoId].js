@@ -73,8 +73,8 @@ export async function getStaticPaths() {
   return { paths: videoPaths, fallback: 'blocking' };
 }
 
-export async function getStaticProps() {
-  const videoId = '4zH5iYM4wJo';
+export async function getStaticProps({ params }) {
+  const videoId = params.videoId;
   const videos = await getYoutubeVideoById(videoId);
 
   return { props: { video: videos[0] }, revalidate: 10 };
