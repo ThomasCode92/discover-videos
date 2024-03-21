@@ -4,10 +4,10 @@
   left: 0;
   right: 0;
   top: 10%;
-  bottom: 40px;
+  bottom: 0;
   margin: 0 auto;
 
-  width: 800px;
+  width: 100%;
   background-color: var(--black-40);
   border-radius: 0.5rem;
 }
@@ -47,7 +47,7 @@
 
 /** Modal body left side **/
 .video-info {
-  max-height: calc(90vh - 400px - 3rem);
+  max-height: calc(90vh - 360px - 3rem);
   overflow-y: scroll;
   font-size: 1.125rem /* 18px */;
   line-height: 1.75rem /* 28px */;
@@ -82,14 +82,14 @@
   color: var(--gray-10);
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .modal {
-    top: 0;
-    bottom: 0;
-    width: 100%;
+    top: 10%;
+    bottom: 40px;
+    width: 800px;
   }
 
   .video-info {
-    max-height: calc(100vh - 360px - 3rem);
+    max-height: calc(90vh - 400px - 3rem);
   }
 }
