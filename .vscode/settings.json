@@ -11,6 +11,10 @@
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  }
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "always"
+  },
+
+  // IDE Specific JavaScript Config
+  "javascript.inlayHints.parameterNames.enabled": "all"
 }
