@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+import { setTokenCookie } from '@/lib/cookie';
 import { createNewUser, getUserByDid } from '@/lib/hasura';
 import { magicAdmin } from '@/lib/magic-admin';
 
@@ -27,13 +28,14 @@ export default async function login(req, res) {
       process.env.JWT_SECRET
     );
 
-    const user = await getUserByDid(token, metadata.issuer);
+    let user = await getUserByDid(token, metadata.issuer);
     const isNewUser = !user;
 
     if (isNewUser) {
-      const user = await createNewUser(token, metadata);
-      // create a new user
+      user = await createNewUser(token, metadata);
     }
+
+    setTokenCookie(token);
 
     return res.send({ message: 'Login successful', data: { isNewUser } });
   } catch (error) {
