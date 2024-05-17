@@ -28,11 +28,11 @@ export default async function login(req, res) {
       process.env.JWT_SECRET
     );
 
-    let user = await getUserByDid(token, metadata.issuer);
+    const user = await getUserByDid(token, metadata.issuer);
     const isNewUser = !user;
 
     if (isNewUser) {
-      user = await createNewUser(token, metadata);
+      await createNewUser(token, metadata);
     }
 
     setTokenCookie(token, res);
