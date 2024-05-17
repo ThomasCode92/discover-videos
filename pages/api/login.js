@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+import { isNewUser } from '@/lib/hasura';
 import { magicAdmin } from '@/lib/magic-admin';
 
 export default async function login(req, res) {
@@ -28,9 +29,14 @@ export default async function login(req, res) {
       },
       process.env.JWT_PRIVATE_KEY
     );
-    console.log('token', token);
 
-    return res.send({ message: 'Login successful' });
+    console.log('token', token);
+    const isNewUserQuery = await isNewUser(token);
+
+    return res.send({
+      message: 'Login successful',
+      data: { isNewUser: isNewUserQuery },
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).send({ message: 'Something went wrong' });
