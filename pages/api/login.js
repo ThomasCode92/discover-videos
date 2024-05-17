@@ -35,7 +35,7 @@ export default async function login(req, res) {
       user = await createNewUser(token, metadata);
     }
 
-    setTokenCookie(token);
+    setTokenCookie(token, res);
 
     return res.send({ message: 'Login successful', data: { isNewUser } });
   } catch (error) {
