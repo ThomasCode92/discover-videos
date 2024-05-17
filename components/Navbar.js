@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import styles from './Navbar.module.css';
 
 import { magic } from '@/lib/magic';
 
-import netflixLogo from '../public/static/netflix.svg';
 import expandMoreIcon from '../public/static/expand_more.svg';
+import netflixLogo from '../public/static/netflix.svg';
 
 export default function Navbar() {
   const [username, setUsername] = useState(undefined);
@@ -20,6 +20,10 @@ export default function Navbar() {
     async function getUsername() {
       try {
         const { email } = await magic.user.getMetadata();
+        const didToken = await magic.user.getIdToken();
+
+        console.log('didToken', didToken);
+
         if (email) setUsername(email);
       } catch (error) {
         console.log('Error retrieving email:', error);

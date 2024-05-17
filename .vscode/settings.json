@@ -16,5 +16,6 @@
   },
 
   // IDE Specific JavaScript Config
-  "javascript.inlayHints.parameterNames.enabled": "all"
+  "javascript.inlayHints.parameterNames.enabled": "all",
+  "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false
 }
