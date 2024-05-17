@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import Router from 'next/router';
+import { useEffect, useState } from 'react';
 
 import { magic } from '@/lib/magic';
 
-import styles from '@/styles/Login.module.css';
 import netflixLogo from '@/public/static/netflix.svg';
+import styles from '@/styles/Login.module.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -39,13 +39,24 @@ export default function Login() {
 
     if (email === '') return setUserMessage('Please enter your email address');
 
-    if (email !== process.env.NEXT_PUBLIC_TEST_EMAIL)
-      return console.log('Invalid email');
-
     setIsLoading(true);
 
     try {
-      await magic.auth.loginWithMagicLink({ email });
+      const didToken = await magic.auth.loginWithMagicLink({ email });
+
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${didToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) throw new Error();
+      const data = await response.json();
+
+      if (data.message !== 'Login successful') throw new Error();
+
       Router.push('/');
     } catch (error) {
       setIsLoading(false);
