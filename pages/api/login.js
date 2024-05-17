@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import { getUserByDid } from '@/lib/hasura';
+import { createNewUser, getUserByDid } from '@/lib/hasura';
 import { magicAdmin } from '@/lib/magic-admin';
 
 export default async function login(req, res) {
@@ -29,6 +29,11 @@ export default async function login(req, res) {
 
     const user = await getUserByDid(token, metadata.issuer);
     const isNewUser = !user;
+
+    if (isNewUser) {
+      const user = await createNewUser(token, metadata);
+      // create a new user
+    }
 
     return res.send({ message: 'Login successful', data: { isNewUser } });
   } catch (error) {
