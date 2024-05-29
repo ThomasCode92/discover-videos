@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import Image from 'next/image';
 import cls from 'classnames';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useState } from 'react';
 
 import styles from './Card.module.css';
 
@@ -35,7 +35,8 @@ export default function Card({
           src={imgSrc}
           className={styles['card-image']}
           alt="image"
-          fill={true}
+          sizes="100%"
+          fill
           onError={handleImgError}
         />
       </motion.div>

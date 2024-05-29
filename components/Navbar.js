@@ -56,7 +56,7 @@ export default function Navbar() {
   return (
     <nav className={styles.container}>
       <a className={styles['logo-link']}>
-        <Image src={netflixLogo} alt="Netflix logo" className={styles.logo} />
+        <Image src={netflixLogo} alt="Netflix logo" width="8rem" />
       </a>
 
       <ul className={styles['nav-items']}>
