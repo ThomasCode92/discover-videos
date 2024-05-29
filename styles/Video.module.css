@@ -93,3 +93,9 @@
     max-height: calc(90vh - 400px - 3rem);
   }
 }
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .modal-body {
+    display: none;
+  }
+}

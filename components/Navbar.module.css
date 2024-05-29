@@ -101,3 +101,9 @@
     gap: 1.25rem /* 20px */;
   }
 }
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .container {
+    display: none;
+  }
+}
