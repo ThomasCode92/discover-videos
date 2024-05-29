@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import styles from './Navbar.module.css';
-
 import { magic } from '@/lib/magic';
+
+import styles from './Navbar.module.css';
 
 import expandMoreIcon from '../public/static/expand_more.svg';
 import netflixLogo from '../public/static/netflix.svg';
@@ -19,7 +19,7 @@ export default function Navbar() {
   useEffect(() => {
     async function getUsername() {
       try {
-        const { email } = await magic.user.getMetadata();
+        const { email } = await magic.user.getInfo();
         const didToken = await magic.user.getIdToken();
 
         console.log('didToken', didToken);
