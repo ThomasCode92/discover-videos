@@ -1,4 +1,4 @@
 {
   "words": ["hasura"],
-  "ignoreWords": [""]
+  "ignoreWords": ["clsx", "Roboto"]
 }
