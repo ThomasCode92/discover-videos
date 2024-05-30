@@ -1,9 +1,12 @@
-import { useRouter } from 'next/router';
-import localFont from 'next/font/local';
-import Modal from 'react-modal';
 import clsx from 'classnames';
+import localFont from 'next/font/local';
+import { useRouter } from 'next/router';
+import Modal from 'react-modal';
 
 import Navbar from '@/components/Navbar';
+import DisLike from '@/components/icons/DislikeIcon';
+import LikeIcon from '@/components/icons/LikeIcon';
+
 import { getYoutubeVideoById } from '@/lib/videos';
 
 import styles from '@/styles/Video.module.css';
@@ -46,6 +49,14 @@ export default function Video({ video }) {
           src={videoSrc}
           frameborder="0"
         />
+        <div className={styles.icons}>
+          <button className={styles['icon-btn']}>
+            <LikeIcon />
+          </button>
+          <button className={styles['icon-btn']}>
+            <DisLike />
+          </button>
+        </div>
         <div className={clsx(styles['modal-body'], modalFont.className)}>
           <div className={styles['video-info']}>
             <p className={styles['publish-time']}>{video.publishTime}</p>

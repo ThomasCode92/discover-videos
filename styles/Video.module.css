@@ -36,6 +36,24 @@
   composes: border-box-shadow;
 }
 
+/** Icons **/
+.icons {
+  position: absolute;
+  top: 35%;
+  left: 1rem;
+  display: flex;
+  gap: 0.5rem; /* 8px */
+}
+
+.icon-btn {
+  border: 2px solid var(--white-10);
+  border-radius: 100%;
+  padding: 0.5rem; /* 8px */
+  height: 3.5rem; /* 56px */
+  width: 3.5rem; /* 56px */
+  background-color: var(--gray-40);
+}
+
 /** Modal body **/
 .modal-body {
   padding: 0 3rem;
