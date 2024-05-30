@@ -1,7 +1,9 @@
-import clsx from 'classnames';
 import localFont from 'next/font/local';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import Modal from 'react-modal';
+
+import clsx from 'classnames';
 
 import Navbar from '@/components/Navbar';
 import DisLike from '@/components/icons/DislikeIcon';
@@ -23,12 +25,27 @@ const modalFont = localFont({
 
 Modal.setAppElement('#__next');
 
+const INITIAL_ICONS_STATE = { isLikeSelected: false, isDislikeSelected: false };
+
 export default function Video({ video }) {
+  const [icons, setIcons] = useState(INITIAL_ICONS_STATE);
   const router = useRouter();
 
   const { videoId } = router.query;
 
   const videoSrc = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&controls=0&rel=0`;
+
+  const handleToggle = type => {
+    setIcons(prevState => {
+      if (type === 'like' && !prevState.isLikeSelected)
+        return { isLikeSelected: true, isDislikeSelected: false };
+
+      if (type === 'dislike' && !prevState.isDislikeSelected)
+        return { isLikeSelected: false, isDislikeSelected: true };
+
+      return prevState;
+    });
+  };
 
   return (
     <div className={styles.container}>
@@ -50,11 +67,17 @@ export default function Video({ video }) {
           frameborder="0"
         />
         <div className={styles.icons}>
-          <button className={styles['icon-btn']}>
-            <LikeIcon />
+          <button
+            className={styles['icon-btn']}
+            onClick={() => handleToggle('like')}
+          >
+            <LikeIcon selected={icons.isLikeSelected} />
           </button>
-          <button className={styles['icon-btn']}>
-            <DisLike />
+          <button
+            className={styles['icon-btn']}
+            onClick={() => handleToggle('dislike')}
+          >
+            <DisLike selected={icons.isDislikeSelected} />
           </button>
         </div>
         <div className={clsx(styles['modal-body'], modalFont.className)}>
