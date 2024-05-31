@@ -19,6 +19,7 @@ export default async function login(req, res) {
       {
         iat: nowInSeconds,
         exp: nowInSeconds + 60 * 60 * 24 * 7, // 1 week
+        issuer: metadata.issuer,
         'https://hasura.io/jwt/claims': {
           'x-hasura-allowed-roles': ['user', 'admin'],
           'x-hasura-default-role': 'user',
