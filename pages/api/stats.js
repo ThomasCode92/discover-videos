@@ -8,12 +8,12 @@ export default async function stats(req, res) {
 
   try {
     const token = req.cookies.token;
+    const videoId = req.query.videoId;
 
     if (!token) return res.status(401).send({ message: 'Unauthorized' });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decoded.issuer;
-    const videoId = '4zH5iYM4wJo';
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.issuer;
 
     const stats = await findStatsByUserAndVideoId(token, userId, videoId);
     console.log('stats', stats);
