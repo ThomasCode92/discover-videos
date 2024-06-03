@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken';
 
-import { findStatsByUserAndVideoId } from '@/lib/hasura';
+import {
+  addStatsForUserId,
+  findStatsByUserAndVideoId,
+  updateStatsForUserId,
+} from '@/lib/hasura';
 
 export default async function stats(req, res) {
   if (req.method !== 'POST')
@@ -16,11 +20,25 @@ export default async function stats(req, res) {
     const userId = decodedToken.issuer;
 
     const stats = await findStatsByUserAndVideoId(token, userId, videoId);
-    console.log('stats', stats);
 
-    if (stats) return res.send({ message: 'Stats updated' });
+    if (stats) {
+      const data = { watched: false, favoured: false };
+      const updatedStats = await updateStatsForUserId(
+        token,
+        userId,
+        videoId,
+        data
+      );
 
-    return res.status(201).send({ message: 'Stats created' });
+      return res.send({ message: 'Stats updated', data: updatedStats });
+    }
+
+    const data = { watched: false, favoured: false };
+    const createdStats = await addStatsForUserId(token, userId, videoId, data);
+
+    return res
+      .status(201)
+      .send({ message: 'Stats created', data: createdStats });
   } catch (error) {
     console.error(error);
     return res.status(500).send({ message: 'Something went wrong' });
