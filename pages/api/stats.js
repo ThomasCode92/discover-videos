@@ -18,7 +18,9 @@ export default async function stats(req, res) {
     const stats = await findStatsByUserAndVideoId(token, userId, videoId);
     console.log('stats', stats);
 
-    return res.send({ message: 'Stats updated' });
+    if (stats) return res.send({ message: 'Stats updated' });
+
+    return res.status(201).send({ message: 'Stats created' });
   } catch (error) {
     console.error(error);
     return res.status(500).send({ message: 'Something went wrong' });
