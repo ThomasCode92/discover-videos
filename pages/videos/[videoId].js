@@ -35,7 +35,7 @@ export default function Video({ video }) {
 
   const videoSrc = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&controls=0&rel=0`;
 
-  const handleToggle = type => {
+  const handleToggle = async type => {
     setIcons(prevState => {
       if (type === 'like' && !prevState.isLikeSelected)
         return { isLikeSelected: true, isDislikeSelected: false };
@@ -45,6 +45,15 @@ export default function Video({ video }) {
 
       return prevState;
     });
+
+    const response = await fetch('/api/stats?videoId=' + videoId, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ watched: true, favoured: type === 'like' }),
+    });
+
+    const data = await response.json();
+    console.log(data);
   };
 
   return (
