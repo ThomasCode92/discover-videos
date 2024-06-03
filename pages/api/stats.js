@@ -13,6 +13,9 @@ export default async function stats(req, res) {
   try {
     const token = req.cookies.token;
     const videoId = req.query.videoId;
+    const { watched, favoured } = req.body;
+
+    const data = { watched, favoured };
 
     if (!token) return res.status(401).send({ message: 'Unauthorized' });
 
@@ -22,7 +25,6 @@ export default async function stats(req, res) {
     const stats = await findStatsByUserAndVideoId(token, userId, videoId);
 
     if (stats) {
-      const data = { watched: false, favoured: false };
       const updatedStats = await updateStatsForUserId(
         token,
         userId,
@@ -33,7 +35,6 @@ export default async function stats(req, res) {
       return res.send({ message: 'Stats updated', data: updatedStats });
     }
 
-    const data = { watched: false, favoured: false };
     const createdStats = await addStatsForUserId(token, userId, videoId, data);
 
     return res
