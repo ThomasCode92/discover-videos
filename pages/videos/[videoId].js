@@ -1,6 +1,6 @@
 import localFont from 'next/font/local';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
 import clsx from 'classnames';
@@ -35,6 +35,22 @@ export default function Video({ video }) {
 
   const videoSrc = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&controls=0&rel=0`;
 
+  useEffect(() => {
+    async function getStatsForVideo() {
+      const response = await fetch('/api/stats?videoId=' + videoId);
+      const { data } = await response.json();
+
+      if (!response.ok) return;
+
+      setIcons({
+        isLikeSelected: data.favoured,
+        isDislikeSelected: !data.favoured,
+      });
+    }
+
+    getStatsForVideo();
+  }, [videoId]);
+
   const handleToggle = async type => {
     setIcons(prevState => {
       if (type === 'like' && !prevState.isLikeSelected)
@@ -46,14 +62,11 @@ export default function Video({ video }) {
       return prevState;
     });
 
-    const response = await fetch('/api/stats?videoId=' + videoId, {
+    await fetch('/api/stats?videoId=' + videoId, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ watched: true, favoured: type === 'like' }),
     });
-
-    const data = await response.json();
-    console.log(data);
   };
 
   return (
