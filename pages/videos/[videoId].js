@@ -1,6 +1,5 @@
 import localFont from 'next/font/local';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
 import clsx from 'classnames';
@@ -10,6 +9,8 @@ import DisLike from '@/components/icons/DislikeIcon';
 import LikeIcon from '@/components/icons/LikeIcon';
 
 import { getYoutubeVideoById } from '@/lib/videos';
+import { useUpdateStats } from '@/services/mutations';
+import { useStats } from '@/services/queries';
 
 import styles from '@/styles/Video.module.css';
 
@@ -25,47 +26,22 @@ const modalFont = localFont({
 
 Modal.setAppElement('#__next');
 
-const INITIAL_ICONS_STATE = { isLikeSelected: false, isDislikeSelected: false };
-
 export default function Video({ video }) {
-  const [icons, setIcons] = useState(INITIAL_ICONS_STATE);
   const router = useRouter();
 
   const { videoId } = router.query;
 
+  const { data, isValidating } = useStats(videoId);
+  const { trigger, isMutating } = useUpdateStats(videoId);
+
   const videoSrc = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&controls=0&rel=0`;
 
-  useEffect(() => {
-    async function getStatsForVideo() {
-      const response = await fetch('/api/stats?videoId=' + videoId);
-      const { data } = await response.json();
-
-      if (!response.ok) return;
-
-      setIcons({
-        isLikeSelected: data.favoured,
-        isDislikeSelected: !data.favoured,
-      });
-    }
-
-    getStatsForVideo();
-  }, [videoId]);
-
-  const handleToggle = async type => {
-    setIcons(prevState => {
-      if (type === 'like' && !prevState.isLikeSelected)
-        return { isLikeSelected: true, isDislikeSelected: false };
-
-      if (type === 'dislike' && !prevState.isDislikeSelected)
-        return { isLikeSelected: false, isDislikeSelected: true };
-
-      return prevState;
-    });
-
-    await fetch('/api/stats?videoId=' + videoId, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ watched: true, favoured: type === 'like' }),
+  const handleToggle = value => {
+    const favoured = value === 'like';
+    const argument = { favoured, watched: true };
+    trigger(argument, {
+      optimisticData: { watched: true, favoured: favoured },
+      rollbackOnError: true,
     });
   };
 
@@ -91,15 +67,17 @@ export default function Video({ video }) {
         <div className={styles.icons}>
           <button
             className={styles['icon-btn']}
+            disabled={isMutating || isValidating}
             onClick={() => handleToggle('like')}
           >
-            <LikeIcon selected={icons.isLikeSelected} />
+            <LikeIcon selected={data && data.favoured} />
           </button>
           <button
             className={styles['icon-btn']}
+            disabled={isMutating || isValidating}
             onClick={() => handleToggle('dislike')}
           >
-            <DisLike selected={icons.isDislikeSelected} />
+            <DisLike selected={data && !data?.favoured} />
           </button>
         </div>
         <div className={clsx(styles['modal-body'], modalFont.className)}>

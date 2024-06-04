@@ -1,11 +1,14 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import Providers from '@/context/Providers';
+import { Head, Html, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
     <Html lang="en">
       <Head />
       <body>
-        <Main />
+        <Providers>
+          <Main />
+        </Providers>
         <NextScript />
       </body>
     </Html>

@@ -54,6 +54,10 @@
   background-color: var(--gray-40);
 }
 
+.icon-btn:disabled {
+  background-color: var(--gray-10);
+}
+
 /** Modal body **/
 .modal-body {
   padding: 0 3rem;
