@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 
 import {
-  addStatsForUserId,
+  addStatsForUserAndVideoId,
   findStatsByUserAndVideoId,
-  updateStatsForUserId,
+  updateStatsForUserAndVideoId,
 } from '@/lib/hasura';
 
 export default async function stats(req, res) {
@@ -30,7 +30,7 @@ export default async function stats(req, res) {
     const data = { watched, favoured };
 
     if (stats) {
-      const updatedStats = await updateStatsForUserId(
+      const updatedStats = await updateStatsForUserAndVideoId(
         token,
         userId,
         videoId,
@@ -40,7 +40,12 @@ export default async function stats(req, res) {
       return res.send({ message: 'Stats updated', data: updatedStats });
     }
 
-    const createdStats = await addStatsForUserId(token, userId, videoId, data);
+    const createdStats = await addStatsForUserAndVideoId(
+      token,
+      userId,
+      videoId,
+      data
+    );
 
     return res
       .status(201)
