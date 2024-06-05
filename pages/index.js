@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import SectionCards from '@/components/SectionCards';
 
 import { getPopularVideos, getVideos, getWatchedVideos } from '@/lib/videos';
+import verifyToken from '@/utils/verify-token';
 
 import styles from '@/styles/Home.module.css';
 
@@ -54,7 +55,10 @@ export default function Home({
 
 export async function getServerSideProps(context) {
   const token = context.req.cookies?.token ?? null;
-  const userId = process.env.NEXT_PUBLIC_USER_ID;
+  const userId = verifyToken(token);
+
+  if (!token || !userId)
+    return { redirect: { destination: '/login', permanent: false } };
 
   const disneyVideos = await getVideos();
   const watchedVideos = await getWatchedVideos(token, userId);

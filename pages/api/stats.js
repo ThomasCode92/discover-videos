@@ -1,10 +1,9 @@
-import jwt from 'jsonwebtoken';
-
 import {
   addStatsForUserAndVideoId,
   findStatsByUserAndVideoId,
   updateStatsForUserAndVideoId,
 } from '@/lib/hasura';
+import verifyToken from '@/utils/verify-token';
 
 export default async function stats(req, res) {
   if (req.method !== 'POST' && req.method !== 'GET')
@@ -16,9 +15,7 @@ export default async function stats(req, res) {
 
     if (!token) return res.status(401).send({ message: 'Unauthorized' });
 
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decodedToken.issuer;
-
+    const userId = verifyToken(token);
     const stats = await findStatsByUserAndVideoId(token, userId, videoId);
 
     if (req.method === 'GET') {
