@@ -52,8 +52,8 @@ export default function Home({
   );
 }
 
-export async function getServerSideProps() {
-  const token = process.env.NEXT_PUBLIC_HASURA_BEARER_TOKEN;
+export async function getServerSideProps(context) {
+  const token = context.req.cookies?.token ?? null;
   const userId = process.env.NEXT_PUBLIC_USER_ID;
 
   const disneyVideos = await getVideos();
