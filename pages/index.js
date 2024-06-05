@@ -1,15 +1,17 @@
-import { Fragment } from 'react';
 import Head from 'next/head';
+import { Fragment } from 'react';
 
 import Banner from '@/components/Banner';
 import Navbar from '@/components/Navbar';
 import SectionCards from '@/components/SectionCards';
 
-import { getPopularVideos, getVideos } from '@/lib/videos';
+import { getPopularVideos, getVideos, getWatchedVideos } from '@/lib/videos';
+
 import styles from '@/styles/Home.module.css';
 
 export default function Home({
   disneyVideos,
+  watchedVideos,
   travelVideos,
   productivityVideos,
   popularVideos,
@@ -33,6 +35,11 @@ export default function Home({
 
       <div className={styles.videos}>
         <SectionCards title="Disney" size="large" videos={disneyVideos} />
+        <SectionCards
+          title="Watch it again"
+          size="small"
+          videos={watchedVideos}
+        />
         <SectionCards title="Travel" size="small" videos={travelVideos} />
         <SectionCards
           title="Productivity"
@@ -46,12 +53,22 @@ export default function Home({
 }
 
 export async function getServerSideProps() {
+  const token = process.env.NEXT_PUBLIC_HASURA_BEARER_TOKEN;
+  const userId = process.env.NEXT_PUBLIC_USER_ID;
+
   const disneyVideos = await getVideos();
+  const watchedVideos = await getWatchedVideos(token, userId);
   const travelVideos = await getVideos('travel');
   const productivityVideos = await getVideos('productivity');
   const popularVideos = await getPopularVideos();
 
   return {
-    props: { disneyVideos, travelVideos, productivityVideos, popularVideos },
+    props: {
+      disneyVideos,
+      watchedVideos,
+      travelVideos,
+      productivityVideos,
+      popularVideos,
+    },
   };
 }
