@@ -4,15 +4,22 @@ import { Fragment } from 'react';
 import Navbar from '@/components/Navbar';
 import SectionCards from '@/components/SectionCards';
 
+import styles from '@/styles/MyList.module.css';
+
 export default function MyList() {
   return (
     <Fragment>
       <Head>
         <title>My List</title>
       </Head>
-      <main>
+      <main className={styles.main}>
         <Navbar />
-        <SectionCards title="My list" videos={[]} size="small" />
+        <SectionCards
+          className={styles['section-cards']}
+          title="My list"
+          videos={[]}
+          size="small"
+        />
       </main>
     </Fragment>
   );

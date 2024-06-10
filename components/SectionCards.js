@@ -1,13 +1,15 @@
+import clx from 'classnames';
 import Link from 'next/link';
+
 import Card from './Card';
 
 import styles from './SectionCards.module.css';
 
-export default function SectionCards({ title, size, videos }) {
+export default function SectionCards({ title, size, videos, className }) {
   if (!videos) return null;
 
   return (
-    <section className={styles.container}>
+    <section className={clx(styles.container, className)}>
       <h2 className={styles.title}>{title}</h2>
       <div className={styles['card-wrapper']}>
         {videos.map((video, idx) => (
