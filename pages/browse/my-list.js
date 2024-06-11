@@ -22,6 +22,8 @@ export default function MyList({ favouredVideos }) {
           title="My list"
           videos={favouredVideos}
           size="small"
+          shouldWrap
+          shouldScale={false}
         />
       </main>
     </Fragment>

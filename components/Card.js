@@ -12,6 +12,7 @@ export default function Card({
   id,
   imageUrl = DEFAULT_IMAGE_URL,
   size = 'medium',
+  shouldScale = true,
 }) {
   const [imgSrc, setImgSrc] = useState(imageUrl);
 
@@ -29,7 +30,7 @@ export default function Card({
     <div className={styles.container}>
       <motion.div
         className={cls(styles[`${size}-card-image`], styles['motion-wrapper'])}
-        whileHover={whileHoverStyle}
+        whileHover={shouldScale && whileHoverStyle}
       >
         <Image
           src={imgSrc}
