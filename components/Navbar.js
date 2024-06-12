@@ -13,6 +13,7 @@ import netflixLogo from '../public/static/netflix.svg';
 export default function Navbar() {
   const [username, setUsername] = useState(undefined);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [didToken, setDidToken] = useState(undefined);
 
   const router = useRouter();
 
@@ -22,7 +23,7 @@ export default function Navbar() {
         const { email } = await magic.user.getInfo();
         const didToken = await magic.user.getIdToken();
 
-        console.log('didToken', didToken);
+        setDidToken(didToken);
 
         if (email) setUsername(email);
       } catch (error) {
@@ -40,11 +41,13 @@ export default function Navbar() {
   const handleSignOut = async event => {
     event.preventDefault();
 
-    try {
-      await magic.user.logout();
-    } catch (error) {
-      console.error('Error logging out', error);
-    }
+    await fetch('/api/logout', {
+      headers: {
+        Authorization: `Bearer ${didToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
     router.push('/login');
   };
 
