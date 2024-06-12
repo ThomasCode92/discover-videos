@@ -34,8 +34,9 @@ For that, you need to create a `.env.local` file in your project that will look 
 ```bash
 YOUTUBE_API_KEY=<REPLACE THIS>
 NEXT_PUBLIC_MAGIC_PUBLISHABLE_API_KEY=<REPLACE THIS>
+MAGIC_SECRET_KEY=<REPLACE THIS>
 NEXT_PUBLIC_HASURA_GRAPHQL_URL=<REPLACE THIS>
-NEXT_PUBLIC_HASURA_ADMIN_SECRET=<REPLACE THIS>
+JWT_SECRET=<RANDOM_STRING>
 ```
 
 Obtain the necessary environment values by referring to the documentation links provided above. Once retrieved, paste them into the appropriate placeholders.

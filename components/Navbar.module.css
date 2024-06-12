@@ -22,10 +22,6 @@
   color: var(--white-10);
 }
 
-.logo {
-  width: 8rem /* 128px */;
-}
-
 .nav-items {
   display: flex;
   flex-direction: row;
@@ -103,5 +99,11 @@
   .nav-items {
     margin-left: 3rem /* 48px */;
     gap: 1.25rem /* 20px */;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .container {
+    display: none;
   }
 }

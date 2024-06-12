@@ -19,6 +19,12 @@
   overflow-y: hidden;
 }
 
+.wrap {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem; /* 16px */
+}
+
 @media (min-width: 768px) {
   .container {
     padding-left: 4rem /* 64px */;

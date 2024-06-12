@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import styles from './Navbar.module.css';
-
 import { magic } from '@/lib/magic';
+
+import styles from './Navbar.module.css';
 
 import expandMoreIcon from '../public/static/expand_more.svg';
 import netflixLogo from '../public/static/netflix.svg';
@@ -13,16 +13,17 @@ import netflixLogo from '../public/static/netflix.svg';
 export default function Navbar() {
   const [username, setUsername] = useState(undefined);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [didToken, setDidToken] = useState(undefined);
 
   const router = useRouter();
 
   useEffect(() => {
     async function getUsername() {
       try {
-        const { email } = await magic.user.getMetadata();
+        const { email } = await magic.user.getInfo();
         const didToken = await magic.user.getIdToken();
 
-        console.log('didToken', didToken);
+        setDidToken(didToken);
 
         if (email) setUsername(email);
       } catch (error) {
@@ -40,11 +41,13 @@ export default function Navbar() {
   const handleSignOut = async event => {
     event.preventDefault();
 
-    try {
-      await magic.user.logout();
-    } catch (error) {
-      console.error('Error logging out', error);
-    }
+    await fetch('/api/logout', {
+      headers: {
+        Authorization: `Bearer ${didToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
     router.push('/login');
   };
 
@@ -56,7 +59,7 @@ export default function Navbar() {
   return (
     <nav className={styles.container}>
       <a className={styles['logo-link']}>
-        <Image src={netflixLogo} alt="Netflix logo" className={styles.logo} />
+        <Image src={netflixLogo} alt="Netflix logo" width="8rem" />
       </a>
 
       <ul className={styles['nav-items']}>
